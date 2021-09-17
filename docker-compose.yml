@@ -1,0 +1,17 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:1.13.12-alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+  web:
+    build: .
+    command: npm start
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://todoapp@postgres/todos
